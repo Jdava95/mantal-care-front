@@ -1,8 +1,9 @@
+import { lazy } from "react";
 import { RouteProps } from "react-router-dom";
 
-import MainPage from "@main/MainPage";
-import RegistrationPage from "@registr/RegistrationPage";
-import WelcomePage from "@welcome/WelcomePage";
+const MainPage = lazy(() => import("@main/MainPage"));
+const RegistrationPage = lazy(() => import("@registr/RegistrationPage"));
+const WelcomePage = lazy(() => import("@welcome/WelcomePage"));
 
 import {
     CORE_PATH,
