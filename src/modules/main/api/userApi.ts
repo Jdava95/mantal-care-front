@@ -8,4 +8,4 @@ import { getCurrentUserRecords } from "@src/controller";
  * @param email
  */
 export const getUserData = async (email: string) =>
-    (await getDoc(getCurrentUserRecords("user-data", email))).data();
+    (await getDoc(getCurrentUserRecords("user-data", email))).data() || [];
