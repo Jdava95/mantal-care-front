@@ -19,10 +19,8 @@ const RegistrationForm = () => {
     const login = async () => {
         const provider = new GoogleAuthProvider();
         try {
-            const { user } = await signInWithPopup(auth, provider);
-            if (user) {
-                history.push(RECORD_PAGE_PATH);
-            }
+            await signInWithPopup(auth, provider);
+            history.push(RECORD_PAGE_PATH);
         } catch (e) {
             alert("error");
         }
