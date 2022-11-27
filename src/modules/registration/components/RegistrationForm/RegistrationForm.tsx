@@ -18,12 +18,8 @@ const RegistrationForm = () => {
 
     const login = async () => {
         const provider = new GoogleAuthProvider();
-        try {
-            await signInWithPopup(auth, provider);
-            history.push(RECORD_PAGE_PATH);
-        } catch (e) {
-            alert("error");
-        }
+        await signInWithPopup(auth, provider);
+        history.push(RECORD_PAGE_PATH);
     };
     return (
         <>
@@ -31,7 +27,7 @@ const RegistrationForm = () => {
                 <RegistrationTitle>Welcome! 👋🏻</RegistrationTitle>
                 <ActionColumn>
                     <Input placeholder="Email" />
-                    <Button onClick={login}>Вход</Button>
+                    <Button onClick={() => void login()}>Вход</Button>
                 </ActionColumn>
             </div>
 
