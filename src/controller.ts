@@ -3,7 +3,13 @@ import "firebase/compat/auth";
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
+import {
+    collection,
+    doc,
+    getDoc,
+    getFirestore,
+    setDoc,
+} from "firebase/firestore";
 
 export const API_KEY = process.env.API_KEY as string;
 export const AUTH_DOMAIN = process.env.AUTH_DOMAIN as string;
@@ -31,5 +37,13 @@ export const auth = getAuth(app);
 // db requests
 export const questionsCollection = collection(firestore, "questions");
 
-export const setData = (collect: string, document: string, data: any) =>
-    setDoc(doc(firestore, collect, document), { answers: [data] });
+export const userDataCollection = collection(firestore, "user-data");
+
+export const setData = (
+    collect: string,
+    document: string,
+    data: Array<Record<string, string>>
+) => setDoc(doc(firestore, collect, document), { answers: data });
+
+export const getCurrentUserRecords = (collect: string, user: string) =>
+    doc(firestore, collect, user);

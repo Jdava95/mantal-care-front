@@ -1,17 +1,22 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-import { REGISTRATION_ROUTING } from "@registr/routing/registrationRouting";
+import { REGISTRATION_PATH } from "@core/routing/routingConstants";
+
+import CodeForm from "@registr/components/CodeForm/CodeForm";
+import RegistrationForm from "@registr/components/RegistrationForm/RegistrationForm";
 import { CardStyled } from "@registr/styles/cardStyles";
 
 const BottomCard = () => {
+    const location = useLocation();
+
     return (
         <CardStyled>
-            <Switch>
-                {REGISTRATION_ROUTING.map((route) => {
-                    return <Route key={route.path as string} {...route} />;
-                })}
-            </Switch>
+            {location.pathname === REGISTRATION_PATH ? (
+                <RegistrationForm />
+            ) : (
+                <CodeForm />
+            )}
         </CardStyled>
     );
 };

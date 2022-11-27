@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
 
 import MainBottomBar from "@main/components/MainBottomBar";
@@ -11,13 +11,11 @@ const MainPage = () => {
         <MainWrapperStyled>
             <MainTopBar />
             <MainContentStyled>
-                <Suspense fallback={"...loading"}>
-                    <Switch>
-                        {MAIN_CORE_ROUTES.map((route) => (
-                            <Route key={route.path as string} {...route} />
-                        ))}
-                    </Switch>
-                </Suspense>
+                <Switch>
+                    {MAIN_CORE_ROUTES.map((route) => (
+                        <Route key={route.path as string} {...route} />
+                    ))}
+                </Switch>
             </MainContentStyled>
             <MainBottomBar />
         </MainWrapperStyled>

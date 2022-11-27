@@ -1,12 +1,17 @@
-import { lazy } from "react";
 import { RouteProps } from "react-router-dom";
 
-const MainPage = lazy(() => import("@main/MainPage"));
-const RegistrationPage = lazy(() => import("@registr/RegistrationPage"));
-const WelcomePage = lazy(() => import("@welcome/WelcomePage"));
+import MainPage from "@main/MainPage";
+import {
+    CONTACTS_PAGE_PATH,
+    HISTORY_PAGE_PATH,
+    PROFILE_PAGE_PATH,
+    RECORD_PAGE_PATH,
+} from "@main/routing/mainConstants";
+import RegistrationPage from "@registr/RegistrationPage";
+import WelcomePage from "@welcome/WelcomePage";
 
 import {
-    CORE_PATH,
+    CODE_PATH,
     REGISTRATION_PATH,
     WELCOME_PAGE_PATH,
 } from "./routingConstants";
@@ -15,6 +20,12 @@ export const PUBLIC_CORE_ROUTES: RouteProps[] = [
     {
         path: REGISTRATION_PATH,
         component: RegistrationPage,
+        exact: true,
+    },
+    {
+        path: CODE_PATH,
+        component: RegistrationPage,
+        exact: true,
     },
     {
         path: WELCOME_PAGE_PATH,
@@ -25,7 +36,19 @@ export const PUBLIC_CORE_ROUTES: RouteProps[] = [
 
 export const PRIVATE_CORE_ROUTES: RouteProps[] = [
     {
-        path: CORE_PATH,
+        path: RECORD_PAGE_PATH,
+        component: MainPage,
+    },
+    {
+        path: HISTORY_PAGE_PATH,
+        component: MainPage,
+    },
+    {
+        path: CONTACTS_PAGE_PATH,
+        component: MainPage,
+    },
+    {
+        path: PROFILE_PAGE_PATH,
         component: MainPage,
     },
 ];

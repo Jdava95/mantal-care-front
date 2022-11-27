@@ -12,7 +12,7 @@ import {
     CodeInputStyled,
     FormRepeatCodeStyled,
     FormTopContentStyled,
-} from "@registr/modules/CodeForm/styles/codeFormStyles";
+} from "@registr/styles/codeFormStyles";
 
 const CodeForm = () => {
     const history = useHistory();

@@ -1,10 +1,12 @@
-import React, { useMemo, useReducer, useRef } from "react";
+import React, { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { orderBy, query } from "firebase/firestore";
 
+import AppLoader from "@core/components/AppLoader";
 import { auth, questionsCollection, setData } from "@src/controller";
 
+import { getUserData } from "@main/api/userApi";
 import QuestionCard from "@main/modules/record/conponents/QuestionCard";
 import {
     RecordNote,
@@ -24,14 +26,24 @@ import { QuestionCardType } from "@main/types/questionCardTypes";
 const RecordPage = () => {
     const [user] = useAuthState(auth);
     const [state, dispatch] = useReducer(recordReducer, RECORD_INITIAL_STATE);
+    const [userMoods, setUserMoods] = useState<Array<Record<string, string>>>();
     const ref = useRef<string>("");
-
-    const changeHandler = (type: RecordType, value: string) =>
-        dispatch({ type, payload: value });
 
     const [questions, loading, error] = useCollection(
         query(questionsCollection, orderBy("id", "asc"))
     );
+
+    useEffect(() => {
+        void getUserMoods();
+    }, []);
+
+    const getUserMoods = async () => {
+        const userData = await getUserData(user?.email || "");
+        setUserMoods(userData?.answers as Array<Record<string, string>>);
+    };
+
+    const changeHandler = (type: RecordType, value: string) =>
+        dispatch({ type, payload: value });
 
     const saveHandler = async () => {
         const requestData: SaveRecordTypes = {
@@ -40,10 +52,15 @@ const RecordPage = () => {
         };
         try {
             if (user?.email) {
-                await setData("user-data", user.email, requestData);
+                await setData("user-data", user.email, [
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-ignore
+                    ...userMoods,
+                    requestData,
+                ] as Array<Record<string, string>>);
             }
         } catch (e) {
-            console.log(e);
+            alert("Что-то пошло не так");
         }
     };
 
@@ -52,7 +69,7 @@ const RecordPage = () => {
         [state]
     );
 
-    if (loading) return <div>...loading</div>;
+    if (loading) return <AppLoader />;
     if (error) return <div>...error</div>;
 
     return (
