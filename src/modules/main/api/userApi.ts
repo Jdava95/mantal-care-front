@@ -1,4 +1,3 @@
-import { User } from "firebase/auth";
 import { getDoc } from "firebase/firestore";
 
 import { getCurrentUserRecords } from "@src/controller";

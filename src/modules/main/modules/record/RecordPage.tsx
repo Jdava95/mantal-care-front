@@ -26,7 +26,9 @@ import { QuestionCardType } from "@main/types/questionCardTypes";
 const RecordPage = () => {
     const [user] = useAuthState(auth);
     const [state, dispatch] = useReducer(recordReducer, RECORD_INITIAL_STATE);
-    const [userMoods, setUserMoods] = useState<Array<Record<string, string>>>();
+    const [userMoods, setUserMoods] = useState<Array<Record<string, string>>>(
+        []
+    );
     const ref = useRef<string>("");
 
     const [questions, loading, error] = useCollection(
@@ -53,8 +55,6 @@ const RecordPage = () => {
         try {
             if (user?.email) {
                 await setData("user-data", user.email, [
-                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                    // @ts-ignore
                     ...userMoods,
                     requestData,
                 ] as Array<Record<string, string>>);
