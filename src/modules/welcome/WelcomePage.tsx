@@ -1,9 +1,10 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import Logo from "@core/assets/icons/Logo.svg";
-import { MAIN_PAGE_PATH } from "@core/routing/routingConstants";
+import Logo from "@core/assets/icons/logo.svg";
 import { Button } from "@core/styles/button";
+
+import { HISTORY_PAGE_PATH } from "@main/routing/mainConstants";
 
 import {
     WelcomeBlock,
@@ -16,7 +17,7 @@ import {
 const WelcomePage = () => {
     const history = useHistory();
 
-    const clickHandler = () => history.push(MAIN_PAGE_PATH);
+    const clickHandler = () => history.push(HISTORY_PAGE_PATH);
 
     return (
         <WelcomeWrapper>

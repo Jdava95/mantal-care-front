@@ -1,21 +1,25 @@
-import React from "react";
+import React, { Suspense } from "react";
+import { Route, Switch } from "react-router-dom";
 
-import HistoryPage from "@main/modules/history/HistoryPage";
-import {
-    MainContentStyled,
-    MainWrapperStyled,
-    NavigationBottomBar,
-    NavigationTopBar,
-} from "@main/styles/mainStyles";
+import MainBottomBar from "@main/components/MainBottomBar";
+import MainTopBar from "@main/components/MainTopBar";
+import { MAIN_CORE_ROUTES } from "@main/routing/mainRouting";
+import { MainContentStyled, MainWrapperStyled } from "@main/styles/mainStyles";
 
 const MainPage = () => {
     return (
         <MainWrapperStyled>
-            <NavigationTopBar>top</NavigationTopBar>
+            <MainTopBar />
             <MainContentStyled>
-                <HistoryPage />
+                <Suspense fallback={"...loading"}>
+                    <Switch>
+                        {MAIN_CORE_ROUTES.map((route) => (
+                            <Route key={route.path as string} {...route} />
+                        ))}
+                    </Switch>
+                </Suspense>
             </MainContentStyled>
-            <NavigationBottomBar>bottom</NavigationBottomBar>
+            <MainBottomBar />
         </MainWrapperStyled>
     );
 };

@@ -1,5 +1,4 @@
-import React from "react";
-import { Redirect, RouteProps } from "react-router-dom";
+import { RouteProps } from "react-router-dom";
 
 import MainPage from "@main/MainPage";
 import RegistrationPage from "@registr/RegistrationPage";
@@ -7,23 +6,11 @@ import WelcomePage from "@welcome/WelcomePage";
 
 import {
     CORE_PATH,
-    MAIN_PAGE_PATH,
-    REGISTRATION_FORM_PATH,
     REGISTRATION_PATH,
     WELCOME_PAGE_PATH,
 } from "./routingConstants";
 
-export const CORE_ROUTES: RouteProps[] = [
-    {
-        path: CORE_PATH,
-        component: () => <Redirect to={{ pathname: REGISTRATION_FORM_PATH }} />,
-        exact: true,
-    },
-    {
-        path: REGISTRATION_PATH,
-        component: () => <Redirect to={{ pathname: REGISTRATION_FORM_PATH }} />,
-        exact: true,
-    },
+export const PUBLIC_CORE_ROUTES: RouteProps[] = [
     {
         path: REGISTRATION_PATH,
         component: RegistrationPage,
@@ -33,8 +20,11 @@ export const CORE_ROUTES: RouteProps[] = [
         component: WelcomePage,
         exact: true,
     },
+];
+
+export const PRIVATE_CORE_ROUTES: RouteProps[] = [
     {
-        path: MAIN_PAGE_PATH,
+        path: CORE_PATH,
         component: MainPage,
     },
 ];

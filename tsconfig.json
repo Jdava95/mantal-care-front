@@ -18,6 +18,7 @@
         "outDir": "src/dist",
         "baseUrl": "./src",
         "paths": {
+            "@src/*": ["./*"],
             "@core/*": ["core/*"],
             "@registr/*": ["modules/registration/*"],
             "@welcome/*": ["modules/welcome/*"],
