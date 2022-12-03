@@ -2,14 +2,8 @@ import "firebase/compat/firestore";
 import "firebase/compat/auth";
 
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import {
-    collection,
-    doc,
-    getDoc,
-    getFirestore,
-    setDoc,
-} from "firebase/firestore";
+import { getAuth, User } from "firebase/auth";
+import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
 
 export const API_KEY = process.env.API_KEY as string;
 export const AUTH_DOMAIN = process.env.AUTH_DOMAIN as string;
@@ -39,11 +33,25 @@ export const questionsCollection = collection(firestore, "questions");
 
 export const userDataCollection = collection(firestore, "user-data");
 
-export const setData = (
+export const setAnswer = (
     collect: string,
     document: string,
     data: Array<Record<string, string>>
 ) => setDoc(doc(firestore, collect, document), { answers: data });
 
-export const getCurrentUserRecords = (collect: string, user: string) =>
+export const getCurrentUser = (collect: string, user: string) =>
     doc(firestore, collect, user);
+
+export const createNewUser = (user: User) =>
+    setDoc(doc(firestore, "user-data", user?.email as string), {
+        answers: {},
+        info: {
+            email: user?.email,
+            name: user?.displayName,
+            uuid: user?.uid,
+        },
+        settings: {
+            init: false,
+        },
+        createdAt: Date.now(),
+    });

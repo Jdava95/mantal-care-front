@@ -1,10 +1,13 @@
 import { getDoc } from "firebase/firestore";
 
-import { getCurrentUserRecords } from "@src/controller";
+import { getCurrentUser } from "@src/controller";
+
+import { UserData } from "@main/types/UserTypes";
 
 /**
- * Получить все записи настроения пользователя
+ * Получить все данные пользователя
  * @param email
  */
 export const getUserData = async (email: string) =>
-    (await getDoc(getCurrentUserRecords("user-data", email))).data() || [];
+    ((await getDoc(getCurrentUser("user-data", email))).data() as UserData) ||
+    ({} as UserData);
